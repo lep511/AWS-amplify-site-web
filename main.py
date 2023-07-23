@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import folium 
+
+m = folium.Map(location=[40.965, -5.664])
 
 df = pd.read_csv('https://ckan.montevideo.gub.uy/dataset/159475cc-6584-48d3-961c-b6fa71e14cba/resource/fd845194-4cc7-43ea-bc06-00bbfb26f6f4/download/bprumd85rjyqcuqprxpplw.csv')
 st.write(len(df))
