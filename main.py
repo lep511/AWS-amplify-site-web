@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-df = pd.read_csv('https://ckan.montevideo.gub.uy/dataset/159475cc-6584-48d3-961c-b6fa71e14cba/resource/17e9f10c-8d5e-4984-82ce-d19531b1acdb/download/detector_latitud_longitud.csv')
+df = pd.read_csv('https://ckan.montevideo.gub.uy/dataset/159475cc-6584-48d3-961c-b6fa71e14cba/resource/17e9f10c-8d5e-4984-82ce-d19531b1acdb/download/detector_latitud_longitud.csv', sep =";")
 st.write(len(df))
 
 st.write(df.head(20))
