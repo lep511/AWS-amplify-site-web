@@ -6,6 +6,9 @@ st.write(pd.DataFrame({
     'first column': [1, 2, 3, 4],
     'second column': [10, 20, 30, 40],
 }))
+
+age = st.slider('How old are you?', 0, 130, 25)
+st.write("I'm ", age, 'years old')
 # This is a sample Python script.
 
 # Press Mayús+F10 to execute it or replace it with your code.
