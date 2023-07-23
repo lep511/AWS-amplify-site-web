@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
 
-st.write(1234)
+age = st.slider('How old are you?', 0, 130, 25)
 st.write(pd.DataFrame({
     'first column': [1, 2, 3, 4],
-    'second column': [10, 20, 30, 40],
+    'second column': [10*age, 20*age, 30*age, 40*age],
 }))
 
 age = st.slider('How old are you?', 0, 130, 25)
