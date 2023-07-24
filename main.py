@@ -1,10 +1,14 @@
 import streamlit as st
-from bokeh.io import show
-from bokeh.models import CustomJS, Dropdown
+from bokeh.plotting import figure
 
-menu = [("Item 1", "item_1"), ("Item 2", "item_2"), None, ("Item 3", "item_3")]
+x = [1, 2, 3, 4, 5]
+y = [6, 7, 2, 4, 5]
 
-dropdown = Dropdown(label="Dropdown button", button_type="warning", menu=menu)
-dropdown.js_on_event("menu_item_click", CustomJS(code="console.log('dropdown: ' + this.item, this.toString())"))
+p = figure(
+    title='simple line example',
+    x_axis_label='x',
+    y_axis_label='y')
 
-st.write(show(dropdown))
+p.line(x, y, legend_label='Trend', line_width=2)
+
+st.bokeh_chart(p, use_container_width=True)
