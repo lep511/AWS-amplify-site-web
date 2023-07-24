@@ -1,24 +1,49 @@
 import streamlit as st
-from bokeh.models.widgets import Button
-from bokeh.models import CustomJS
-from streamlit_bokeh_events import streamlit_bokeh_events
+import leafmap.foliumap as leafmap
 
-loc_button = Button(label="Get Location")
-loc_button.js_on_event("button_click", CustomJS(code="""
-    navigator.geolocation.getCurrentPosition(
-        (loc) => {
-            document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
-        }
-    )
-    """))
-result = streamlit_bokeh_events(
-    loc_button,
-    events="GET_LOCATION",
-    key="get_location",
-    refresh_on_update=False,
-    override_height=75,
-    debounce_time=0)
+st.set_page_config(layout="wide")
 
-if result:
-    if "GET_LOCATION" in result:
-        st.write(result.get("GET_LOCATION"))
+st.sidebar.info(
+    """
+    - Web App URL: <https://streamlit.geemap.org>
+    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    """
+)
+
+st.sidebar.title("Contact")
+st.sidebar.info(
+    """
+    Qiusheng Wu: <https://wetlands.io>
+    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    """
+)
+
+st.title("Streamlit for Geospatial Applications")
+
+st.markdown(
+    """
+    This multi-page web app demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and open-source mapping libraries, 
+    such as [leafmap](https://leafmap.org), [geemap](https://geemap.org), [pydeck](https://deckgl.readthedocs.io), and [kepler.gl](https://docs.kepler.gl/docs/keplergl-jupyter).
+    This is an open-source project and you are very welcome to contribute your comments, questions, resources, and apps as [issues](https://github.com/giswqs/streamlit-geospatial/issues) or 
+    [pull requests](https://github.com/giswqs/streamlit-geospatial/pulls) to the [GitHub repository](https://github.com/giswqs/streamlit-geospatial).
+
+    """
+)
+
+st.info("Click on the left sidebar menu to navigate to the different apps.")
+
+st.subheader("Timelapse of Satellite Imagery")
+st.markdown(
+    """
+    The following timelapse animations were created using the Timelapse web app. Click `Timelapse` on the left sidebar menu to create your own timelapse for any location around the globe.
+"""
+)
+
+row1_col1, row1_col2 = st.columns(2)
+with row1_col1:
+    st.image("https://github.com/giswqs/data/raw/main/timelapse/spain.gif")
+    st.image("https://github.com/giswqs/data/raw/main/timelapse/las_vegas.gif")
+
+with row1_col2:
+    st.image("https://github.com/giswqs/data/raw/main/timelapse/goes.gif")
+    st.image("https://github.com/giswqs/data/raw/main/timelapse/fire.gif")
