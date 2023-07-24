@@ -1,20 +1,15 @@
 import folium
 import streamlit as st
+from folium.plugins import Draw
 
 from streamlit_folium import st_folium
 
-CENTER_START = [39.949610, -75.150282]
-m = folium.Map(location=CENTER_START, zoom_start=8)
-fg = folium.FeatureGroup(name="Markers")
-for marker in st.session_state["markers"]:
-    fg.add_child(marker)
+m = folium.Map(location=[39.949610, -75.150282], zoom_start=5)
+Draw(export=True).add_to(m)
 
-st_folium(
-    m,
-    center=st.session_state["center"],
-    zoom=st.session_state["zoom"],
-    key="new",
-    feature_group_to_add=fg,
-    height=400,
-    width=700,
-)
+c1, c2 = st.columns(2)
+with c1:
+    output = st_folium(m, width=700, height=500)
+
+with c2:
+    st.write(output)
