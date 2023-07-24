@@ -1,14 +1,14 @@
+import numpy as np
+import pandas as pd
 import streamlit as st
-from bokeh.plotting import figure
 
-x = [1, 2, 3, 4, 5]
-y = [6, 7, 2, 4, 5]
 
-p = figure(
-    title='simple line example',
-    x_axis_label='x',
-    y_axis_label='y')
+@st.cache_data
+def load_data():
+    df = pd.DataFrame(np.random.randn(10, 5), columns=("col %d" % i for i in range(5)))
+    return df
 
-p.line(x, y, legend_label='Trend', line_width=2)
 
-st.bokeh_chart(p, use_container_width=True)
+df = load_data()
+
+st.table(df)
