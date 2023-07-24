@@ -3,11 +3,17 @@ import streamlit as st
 
 from streamlit_folium import st_folium
 
-# center on Liberty Bell, add marker
-m = folium.Map(location=[39.949610, -75.150282], zoom_start=16)
-folium.Marker(
-    [39.949610, -75.150282], popup="Liberty Bell", tooltip="Liberty Bell"
-).add_to(m)
+m = folium.Map(location=CENTER_START, zoom_start=8)
+fg = folium.FeatureGroup(name="Markers")
+for marker in st.session_state["markers"]:
+    fg.add_child(marker)
 
-# call to render Folium map in Streamlit
-st_data = st_folium(m, width=725)
+st_folium(
+    m,
+    center=st.session_state["center"],
+    zoom=st.session_state["zoom"],
+    key="new",
+    feature_group_to_add=fg,
+    height=400,
+    width=700,
+)
