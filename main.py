@@ -1,6 +1,17 @@
 import streamlit as st
 import pandas as pd
-import folium 
+from flask import Flask, render_template_string
+
+import folium
+
+app = Flask(__name__)
+
+@app.route("/")
+def fullscreen():
+    """Simple example of a fullscreen map."""
+    m = folium.Map()
+    return m.get_root().render()
+
 
 m = folium.Map(location=[40.965, -5.664])
 
