@@ -1,15 +1,24 @@
-import folium
 import streamlit as st
-from folium.plugins import Draw
+from bokeh.models.widgets import Button
+from bokeh.models import CustomJS
+from streamlit_bokeh_events import streamlit_bokeh_events
 
-from streamlit_folium import st_folium
+loc_button = Button(label="Get Location")
+loc_button.js_on_event("button_click", CustomJS(code="""
+    navigator.geolocation.getCurrentPosition(
+        (loc) => {
+            document.dispatchEvent(new CustomEvent("GET_LOCATION", {detail: {lat: loc.coords.latitude, lon: loc.coords.longitude}}))
+        }
+    )
+    """))
+result = streamlit_bokeh_events(
+    loc_button,
+    events="GET_LOCATION",
+    key="get_location",
+    refresh_on_update=False,
+    override_height=75,
+    debounce_time=0)
 
-m = folium.Map(location=[39.949610, -75.150282], zoom_start=5)
-Draw(export=True).add_to(m)
-
-c1, c2 = st.columns(2)
-with c1:
-    output = st_folium(m, width=700, height=500)
-
-with c2:
-    st.write(output)
+if result:
+    if "GET_LOCATION" in result:
+        st.write(result.get("GET_LOCATION"))
