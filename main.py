@@ -32,5 +32,3 @@ st.write(pd.DataFrame({
 
 
 st.write("I'm ", age, 'years old')
-# This is a sample Python script.
-st.write(m)
